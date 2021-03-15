@@ -38,7 +38,7 @@ class SearchController < ApplicationController
     else
       flash.now[:notice]="#{@results.size} #{@results.size==1 ? 'item' : 'items'} matched '<b>#{@search_query}</b>' within their title or content.".html_safe
     end
-
+    
     @include_external_search = search_params[:include_external_search]=="1"
 
     view_context.ie_support_faceted_browsing? if Seek::Config.faceted_search_enabled

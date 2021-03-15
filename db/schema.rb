@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_093059) do
+ActiveRecord::Schema.define(version: 2021_03_08_074938) do
 
   create_table "activity_logs", id: :integer,  force: :cascade do |t|
     t.string "action"
@@ -44,6 +44,22 @@ ActiveRecord::Schema.define(version: 2020_07_29_093059) do
     t.integer "project_id"
     t.integer "role_mask"
     t.integer "person_id"
+  end
+
+  create_table "advanced_searches",  force: :cascade do |t|
+    t.string "keywords"
+    t.string "search_type"
+    t.date "min_due_date"
+    t.date "max_due_date"
+    t.string "institution"
+    t.string "discipline"
+    t.string "tool"
+    t.string "city"
+    t.string "expertise"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "project_status"
+    t.string "browse_type"
   end
 
   create_table "annotation_attributes", id: :integer,  force: :cascade do |t|
@@ -1167,6 +1183,7 @@ ActiveRecord::Schema.define(version: 2020_07_29_093059) do
     t.text "funding_details", limit: 16777215
     t.boolean "is_activated", default: false
     t.text "activation_rejection_reason", limit: 16777215
+    t.string "project_status"
   end
 
   create_table "project_descendants", id: false,  force: :cascade do |t|
@@ -1229,6 +1246,8 @@ ActiveRecord::Schema.define(version: 2020_07_29_093059) do
     t.boolean "use_default_policy", default: false
     t.date "start_date"
     t.date "end_date"
+    t.date "target_completion"
+    t.string "project_status"
   end
 
   create_table "projects_publications", id: false,  force: :cascade do |t|

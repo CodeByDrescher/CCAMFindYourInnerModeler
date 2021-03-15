@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   db: # Database implementation, in this case MySQL
     image: mysql:5.7
@@ -12,9 +12,9 @@ services:
       - seek-mysql-db:/var/lib/mysql
 
   seek: # The SEEK application
-    #build: .
+    build: .
 
-    image: fairdom/seek:1.10
+    #image: fairdom/seek:1.10
 
     container_name: seek
     command: docker/entrypoint.sh
@@ -38,26 +38,26 @@ services:
       - solr
 
   seek_workers: # The SEEK delayed job workers
-      #build: .
+    build: .
 
-      image: fairdom/seek:1.10
-      container_name: seek-workers
-      command: docker/start_workers.sh
-      restart: always
-      environment:
-        RAILS_ENV: production
-        SOLR_PORT: 8983
-      env_file:
-        - docker/db.env
-      volumes:
-        - seek-filestore:/seek/filestore
-        - seek-cache:/seek/tmp/cache
-      depends_on:
-        - db
-        - solr
-      links:
-        - db
-        - solr
+    #image: fairdom/seek:1.10
+    container_name: seek-workers
+    command: docker/start_workers.sh
+    restart: always
+    environment:
+      RAILS_ENV: production
+      SOLR_PORT: 8983
+    env_file:
+      - docker/db.env
+    volumes:
+      - seek-filestore:/seek/filestore
+      - seek-cache:/seek/tmp/cache
+    depends_on:
+      - db
+      - solr
+    links:
+      - db
+      - solr
 
   solr:
     image: fairdom/seek-solr
@@ -67,7 +67,6 @@ services:
       SOLR_JAVA_MEM: -Xms512m -Xmx1024m
     volumes:
       - seek-solr-data:/opt/solr/server/solr/seek/data
-
 
 volumes:
   seek-filestore:

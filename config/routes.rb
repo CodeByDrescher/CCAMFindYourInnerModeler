@@ -248,6 +248,7 @@ SEEK::Application.routes.draw do
     end
     concerns :has_dashboard, controller: :project_stats
   end
+  resources :advanced_searches
 
   resources :openbis_endpoints do
     get :test_endpoint, on: :member

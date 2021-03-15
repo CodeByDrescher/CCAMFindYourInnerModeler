@@ -119,6 +119,10 @@ module Seek
       end
     end
 
+    def self.project_statuses
+      ["Have a manuscript in preparation, want to discuss how a modeling component can be added", "Have a dataset, want to discuss which modeling techniques can be used", "Planning a grant, want to invite experimental collaborators that have relevant data", "Planning a grant, want to discuss how a modeling component can be added"]
+    end
+
     # determines the batch size for bulk inserts, as sqlite3 below version 3.7.11 doesn't handle it and requires a size
     # of 1
     def self.bulk_insert_batch_size

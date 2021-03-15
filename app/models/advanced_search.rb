@@ -1,0 +1,2 @@
+class AdvancedSearch < ApplicationRecord
+end
