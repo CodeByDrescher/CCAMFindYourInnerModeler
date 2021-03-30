@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_074938) do
+ActiveRecord::Schema.define(version: 2021_03_30_111852) do
 
   create_table "activity_logs", id: :integer,  force: :cascade do |t|
     t.string "action"
@@ -1184,6 +1184,8 @@ ActiveRecord::Schema.define(version: 2021_03_08_074938) do
     t.boolean "is_activated", default: false
     t.text "activation_rejection_reason", limit: 16777215
     t.string "project_status"
+    t.date "start_date"
+    t.date "end_date"
   end
 
   create_table "project_descendants", id: false,  force: :cascade do |t|
