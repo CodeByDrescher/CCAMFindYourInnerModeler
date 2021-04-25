@@ -20,17 +20,24 @@
         <b>Filename:</b>
         <span class='filename'>
             <%=h fileinfo.original_filename %>&nbsp;
-            <% if fileinfo.asset.can_download? %>
-            <%= render :partial => "assets/view_content", :locals => {:content_blob => fileinfo, :icon_view => true} -%>
-            <%= mini_file_download_icon(fileinfo) %>
-            <% end %>
+            <div>
+                <% if fileinfo.asset.can_download? %>
+                <%= render :partial => "assets/view_content", :locals => {:content_blob => fileinfo, :icon_view => true} -%>
+                <%= mini_file_download_icon(fileinfo) %>
+                <% end %>
+            </div>
+
         </span>
     </p>
 
+    <%
+=begin%>
     <p>
         <b>Format:</b>
         <span class="format"><%=h fileinfo.human_content_type -%></span>
     </p>
+    <%
+=end%>
 
     <p>
         <b>Size:</b>

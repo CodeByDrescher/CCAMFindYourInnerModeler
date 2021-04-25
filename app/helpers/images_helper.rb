@@ -4,13 +4,36 @@
 module ImagesHelper
   include Seek::MimeTypes
 
-  def image_tag_for_key(key, url = nil, alt = nil, html_options = {}, label = key.humanize, remote = false, size = nil)
+  def image_tag_for_key(key, url = nil, alt = nil, html_options = {}, label = key.humanize, remote = false, size=nil)
     label = 'Delete' if label == 'Destroy'
 
     return nil unless (filename = icon_filename_for_key(key.downcase))
 
     image_options = alt ? { alt: alt } : { alt: key.humanize }
-    image_options[:size] = "#{size}x#{size}" unless size.blank?
+    image_options[:size] = "#{size}x#{size}"
+    img_tag = image_tag(filename, image_options).html_safe
+
+    inner = img_tag.html_safe
+    inner = "#{img_tag} #{label}".html_safe unless label.blank?
+
+    if url
+      inner = if remote
+                link_to(inner, url, html_options.merge(remote: true))
+              else
+                link_to(inner, url, html_options)
+              end
+    end
+
+    inner.html_safe
+  end
+
+  def image_tag_for_key_documents(key, url = nil, alt = nil, html_options = {}, label = key.humanize, remote = false, size=nil)
+    label = 'Delete' if label == 'Destroy'
+
+    return nil unless (filename = icon_filename_for_key(key.downcase))
+
+    image_options = alt ? { alt: alt } : { alt: key.humanize }
+    image_options[:size] = "32x32"
     img_tag = image_tag(filename, image_options).html_safe
 
     inner = img_tag.html_safe

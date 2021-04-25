@@ -6,74 +6,78 @@
 <%= render :partial => "general/item_title", :locals => {:item=>@person, :buttons_partial => 'people/buttons'} %>
 
 <div class="row">
-  <div class="col-md-9 col-sm-8 box_about_actor">
-    <%= item_description @person.description,:label=>"About #{@person.name}" %>
+    <div class="col-md-9 col-sm-8 box_about_actor">
+        <%= item_description @person.description,:label=>"About #{@person.name}" %>
 
-    <div class="row">
-      <div class="col-md-6">
-        <%= persistent_resource_id(@person) %>
-        <%
+        <div class="row">
+            <div class="col-md-6">
+                <%
+=begin%>
+                <%= persistent_resource_id(@person) %>
+                <%
+=end%>
+                <%
         #uncomment this to show location of a user
 =begin%>
- <p>
-          <% locations = @person.locations -%>
-          <% unless locations.empty? -%>
-              <b><%= locations.length == 1 ? 'Location' : 'Locations' %>:</b>
-              <% locations.each do |location| %>
-                  <%= country_text_or_not_specified(location) %>
-                  <%= ', ' unless location == locations.last -%>
-              <% end -%>
-          <% else -%>
-              <b>Location:</b>
-              <span class="none_text">Not known</span>
-          <% end -%>
-        </p> 
-<%
-=end%>
-        <%= render :partial=>"areas_of_expertise", :locals => {:person=>@person} %>
-        <p>
-          <b>ORCID:</b>
-          <%= orcid_identifier(@person) -%>
-        </p>
-      </div>
-      <% if admin_or_me %>
-          <div class="col-md-6">
-
-            <p>
-              <span class='none_text'>Only shown to you and administrators</span>
-            </p>
-
-            <% if !@person.user.nil? && @person.user.login %>
                 <p>
-                  <b>Login name:</b>
-                  <%= h @person.user.login %>
+                    <% locations = @person.locations -%>
+                    <% unless locations.empty? -%>
+                    <b><%= locations.length == 1 ? 'Location' : 'Locations' %>:</b>
+                    <% locations.each do |location| %>
+                    <%= country_text_or_not_specified(location) %>
+                    <%= ', ' unless location == locations.last -%>
+                    <% end -%>
+                    <% else -%>
+                    <b>Location:</b>
+                    <span class="none_text">Not known</span>
+                    <% end -%>
                 </p>
-            <% end %>
-            <p>
-              <b>Joined:</b>
-              <%= @person.registered? ? date_as_string(@person.user.created_at, true) : 'This person has not yet registered' -%>
-            </p>
+                <%
+=end%>
+                <%= render :partial=>"areas_of_expertise", :locals => {:person=>@person} %>
+                <p>
+                    <b>ORCID:</b>
+                    <%= orcid_identifier(@person) -%>
+                </p>
+            </div>
+            <% if admin_or_me %>
+            <div class="col-md-6">
 
-          </div>
-      <% end %>
+                <p>
+                    <span class='none_text'>Only shown to you and administrators</span>
+                </p>
+
+                <% if !@person.user.nil? && @person.user.login %>
+                <p>
+                    <b>Login name:</b>
+                    <%= h @person.user.login %>
+                </p>
+                <% end %>
+                <p>
+                    <b>Joined:</b>
+                    <%= @person.registered? ? date_as_string(@person.user.created_at, true) : 'This person has not yet registered' -%>
+                </p>
+
+            </div>
+            <% end %>
+        </div>
+
     </div>
 
-  </div>
-
-  <div class="col-md-3 col-sm-4">
-    <%= render :partial => "layouts/contribution_section_box_avatar", :locals => {:object => @person} -%>
-    <%= render :partial => "personal_tags", :locals=>{:person=>@person} if Seek::Config.tagging_enabled %>
-  </div>
+    <div class="col-md-3 col-sm-4">
+        <%= render :partial => "layouts/contribution_section_box_avatar", :locals => {:object => @person} -%>
+        <%= render :partial => "personal_tags", :locals=>{:person=>@person} if Seek::Config.tagging_enabled %>
+    </div>
 </div>
 <div class="row">
-  <% unless hide_contact_details?(@person) %>
-      <div class="col-md-6">
+    <% unless hide_contact_details?(@person) %>
+    <div class="col-md-6">
         <%= render :partial=>"contact_details" %>
-      </div>
-  <% end %>
-  <div class="col-md-6">
-    <%= render :partial=>"project_positions" %>
-  </div>
+    </div>
+    <% end %>
+    <div class="col-md-6">
+        <%= render :partial=>"project_positions" %>
+    </div>
 </div>
 <%= render :partial=>"people/project_subscriptions",:locals => {:person=>@person} if (mine?(@person) || current_user.try(:person).try(:is_admin?))  %>
 
