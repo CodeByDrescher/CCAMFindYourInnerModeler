@@ -16,7 +16,7 @@ services:
 
     #image: fairdom/seek:1.10
 
-    container_name: seek
+    container_name: seek2021
     command: docker/entrypoint.sh
     restart: always
     environment:
@@ -29,7 +29,7 @@ services:
       - seek-filestore:/seek/filestore
       - seek-cache:/seek/tmp/cache
     ports:
-      - "3000:3000"
+      - "80:3000"
     depends_on:
       - db
       - solr
