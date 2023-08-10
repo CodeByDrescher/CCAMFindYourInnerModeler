@@ -27,7 +27,10 @@ debug.log
 .project
 .buildpath
 
+!certbot/www
+!certbot/conf
 certbot/conf/*
+certbot/www/*
 
 tmp/pids/*
 tmp/cache/*
