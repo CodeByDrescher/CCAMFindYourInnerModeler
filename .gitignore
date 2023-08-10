@@ -27,6 +27,8 @@ debug.log
 .project
 .buildpath
 
+certbot/conf/*
+
 tmp/pids/*
 tmp/cache/*
 tmp/dev-cache/*
