@@ -8,6 +8,8 @@ ENV RAILS_ENV=production
 # need to set the locale, otherwise some gems file to install
 ENV LANG="en_US.UTF-8" LANGUAGE="en_US:UTF-8" LC_ALL="C.UTF-8"
 
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
+
 RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends build-essential git \
 		libcurl4-gnutls-dev libmagick++-dev libpq-dev libreadline-dev \
